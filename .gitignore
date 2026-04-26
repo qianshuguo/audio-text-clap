@@ -28,3 +28,6 @@ __pycache__/
 # Virtual env
 venv/
 .env/
+
+# Claude folder
+.claude/
