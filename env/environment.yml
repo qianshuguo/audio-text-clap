@@ -1,0 +1,64 @@
+# 创建环境（使用默认名 dl4m-clap）：
+#   conda env create -f env/environment.yml
+#
+# 自定义环境名：
+#   conda env create -f env/environment.yml --name 你的环境名
+#
+# 激活后还需手动安装 CLAP（在项目根目录运行）：
+#   pip install -e ./CLAP
+
+name: dl4m-clap
+
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+
+  # PyTorch — Intel Mac (x86_64) pip max is 2.2.x; Apple Silicon / Linux can go higher
+  - pytorch>=2.2.0
+  - torchaudio>=2.2.0
+  - torchvision>=0.17.0
+
+  # Audio / signal processing
+  - libsndfile       # backend for soundfile
+  - ffmpeg           # audio clipping in download.py
+  - llvmlite         # install via conda to avoid LLVM build-from-source
+  - numba
+
+  - pip:
+    # CLAP and audio
+    - soundfile
+    - librosa
+    - torchlibrosa
+    - scipy>=1.15.0
+
+    # NLP / model
+    - transformers>=4.51.3
+    - ftfy
+    - regex
+
+    # Data
+    - numpy>=1.24.2,<2.0.0
+    - pandas>=2.2.0
+    - scikit-learn
+    - h5py
+
+    # WebDataset / training utilities
+    - braceexpand
+    - webdataset
+    - wget
+    - progressbar
+    - tqdm
+
+    # Logging
+    - wandb
+
+    # Download
+    - yt-dlp
+
+# After env creation, run manually from project root:
+#   pip install -e ./CLAP
