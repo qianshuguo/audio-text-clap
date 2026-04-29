@@ -77,8 +77,10 @@ def add_gaussian_noise(signal: np.ndarray, snr_db: float, rng: np.random.Generat
     noise = rng.normal(loc=0.0, scale=noise_std, size=signal.shape).astype(np.float32)
     noisy = signal + noise
 
-    # 防止保存成 wav 时被裁剪（float32 wav 理论上没问题，但保险起见 clip 到 [-1, 1]）
-    noisy = np.clip(noisy, -1.0, 1.0)
+    # normalize 而不是 clip：clip 会硬截断波形，破坏实际 SNR（在低 SNR 时尤为明显）
+    peak = np.max(np.abs(noisy))
+    if peak > 1.0:
+        noisy = noisy / peak
     return noisy
 
 
@@ -97,7 +99,7 @@ def add_noise_to_dataset(
     # 决定要处理哪些文件
     if metadata_csv is not None and os.path.exists(metadata_csv):
         df = pd.read_csv(metadata_csv)
-        filenames = df["audio_filename"].tolist()
+        filenames = sorted(df["audio_filename"].tolist())
     else:
         filenames = sorted(f for f in os.listdir(clean_dir) if f.lower().endswith(".wav"))
 

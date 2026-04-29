@@ -39,7 +39,7 @@ import os
 import numpy as np
 import pandas as pd
 import soundfile as sf
-from scipy.signal import butter, sosfilt, sosfiltfilt
+from scipy.signal import butter, sosfiltfilt
 from tqdm import tqdm
 
 
@@ -71,11 +71,8 @@ def high_pass_filter(signal: np.ndarray, sr: int, cutoff_hz: float, order: int =
     sos = butter(order, cutoff_hz, btype="highpass", fs=sr, output="sos")
 
     # 对多声道音频也适用：axis=0 表示沿时间维滤波。
-    try:
-        filtered = sosfiltfilt(sos, signal, axis=0)
-    except ValueError:
-        # 极短音频可能不满足 filtfilt 的 padding 要求，退回到单向滤波。
-        filtered = sosfilt(sos, signal, axis=0)
+    # padtype='constant' 避免极短音频触发 filtfilt padding 异常，保证所有文件行为一致。
+    filtered = sosfiltfilt(sos, signal, axis=0, padtype="constant")
 
     filtered = np.clip(filtered, -1.0, 1.0).astype(np.float32)
     return filtered
