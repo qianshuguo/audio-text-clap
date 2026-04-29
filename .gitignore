@@ -1,7 +1,7 @@
-# Ignore dataset folder
+# data
 data/
 
-# Ignore audio / media files
+# audio / media
 *.wav
 *.mp3
 *.flac
@@ -9,25 +9,26 @@ data/
 *.m4a
 *.mp4
 
-# Ignore large model files
+# model weights
 *.pt
 *.pth
 *.ckpt
 *.bin
 
-# Python cache
+# python
 __pycache__/
 *.pyc
 
-# macOS
+# editors
 .DS_Store
+.vscode/
 
-# Jupyter
+# jupyter
 .ipynb_checkpoints/
 
-# Virtual env
+# env
 venv/
 .env/
 
-# Claude folder
+# tools
 .claude/
