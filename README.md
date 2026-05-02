@@ -20,7 +20,10 @@ We downloaded 500 audio clips from AudioSet, applied different types of signal d
 │   ├── 01_extract_embeddings.ipynb        # extract CLAP audio & text embeddings
 │   ├── 02_similarity_analysis.ipynb       # similarity matrix & distribution analysis
 │   └── 03_processed_audio_analysis.ipynb  # compare results across distortion conditions
-├── results/                # saved embeddings, retrieval metrics, and plots
+├── results/
+│   ├── embeddings/         # saved .npy embedding files (intermediate outputs)
+│   ├── figures/            # plots and visualizations (.png)
+│   └── metrics/            # retrieval metrics (.csv)
 ├── CLAP/                   # LAION-CLAP source code
 ├── env/                    # conda environment file
 └── data/                   # audio files & metadata (local only, not tracked)
