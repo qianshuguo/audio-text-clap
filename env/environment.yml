@@ -46,6 +46,7 @@ dependencies:
     - pandas>=2.2.0
     - scikit-learn
     - h5py
+    - matplotlib
 
     # WebDataset / training utilities
     - braceexpand
