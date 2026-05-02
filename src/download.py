@@ -3,39 +3,38 @@ import os
 import subprocess
 
 # =========================
-# 1. 路径设置
+# 1. Paths
 # =========================
-base_dir = os.path.dirname(os.path.abspath(__file__))   # 当前 download.py 所在目录
-project_dir = os.path.dirname(base_dir)                 # 上一级，也就是 FinalGroupWork
+base_dir = os.path.dirname(os.path.abspath(__file__))   # directory of download.py
+project_dir = os.path.dirname(base_dir)                 # project root
 
 input_csv = os.path.join(project_dir, "data", "raw_csv", "test.csv")
 audio_dir = os.path.join(project_dir, "data", "audio")
 success_csv = os.path.join(project_dir, "data", "metadata_500.csv")
 failed_csv = os.path.join(project_dir, "data", "failed.csv")
 # =========================
-# 2. 参数
+# 2. Parameters
 # =========================
 target_count = 500
-clip_duration = 10  # 每条截取10秒
+clip_duration = 10  # seconds per clip
 temp_file = "temp.wav"
 
 # =========================
-# 3. 读原始CSV
+# 3. Load CSV
 # =========================
 df = pd.read_csv(input_csv)
 
-# 创建音频输出文件夹
 os.makedirs(audio_dir, exist_ok=True)
 
 # =========================
-# 4. 初始化计数和记录
+# 4. Initialize counters
 # =========================
 saved_count = 0
 saved_rows = []
 failed_rows = []
 
 # =========================
-# 5. 开始遍历
+# 5. Main loop
 # =========================
 for original_index, row in df.iterrows():
     if saved_count >= target_count:
@@ -54,12 +53,12 @@ for original_index, row in df.iterrows():
     print(f"URL: {url}")
 
     try:
-        # 删除旧 temp.wav
+        # remove stale temp file
         if os.path.exists(temp_file):
             os.remove(temp_file)
 
         # -------------------------
-        # STEP 1: 下载音频
+        # STEP 1: download audio
         # -------------------------
         result1 = subprocess.run(
             [
@@ -113,7 +112,7 @@ for original_index, row in df.iterrows():
             continue
 
         # -------------------------
-        # STEP 2: 裁剪音频
+        # STEP 2: trim clip
         # -------------------------
         result2 = subprocess.run(
             [
@@ -171,7 +170,7 @@ for original_index, row in df.iterrows():
             continue
 
         # -------------------------
-        # STEP 3: 成功后记录 metadata
+        # STEP 3: record metadata
         # -------------------------
         print(f"Saved: {output_file}")
 
@@ -185,7 +184,7 @@ for original_index, row in df.iterrows():
             "url": url
         }
 
-        # 保留原表全部字段
+        # carry over all original columns
         for col in df.columns:
             if col not in success_record:
                 success_record[col] = row[col]
@@ -211,12 +210,12 @@ for original_index, row in df.iterrows():
         failed_rows.append(failed_record)
 
     finally:
-        # 清理 temp.wav
+        # clean up temp file
         if os.path.exists(temp_file):
             os.remove(temp_file)
 
 # =========================
-# 6. 保存成功和失败记录
+# 6. Save results
 # =========================
 metadata_df = pd.DataFrame(saved_rows)
 metadata_df.to_csv(success_csv, index=False)
@@ -225,7 +224,7 @@ failed_df = pd.DataFrame(failed_rows)
 failed_df.to_csv(failed_csv, index=False)
 
 # =========================
-# 7. 输出总结
+# 7. Summary
 # =========================
 print("\n" + "=" * 60)
 print("Finished.")

@@ -1,10 +1,10 @@
-# 创建环境（使用默认名 dl4m-clap）：
+# Create environment (default name: dl4m-clap):
 #   conda env create -f env/environment.yml
 #
-# 自定义环境名：
-#   conda env create -f env/environment.yml --name 你的环境名
+# Custom name:
+#   conda env create -f env/environment.yml --name your-env-name
 #
-# 激活后还需手动安装 CLAP（在项目根目录运行）：
+# After activation, install CLAP from project root:
 #   pip install -e ./CLAP
 
 name: dl4m-clap
