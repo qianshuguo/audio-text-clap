@@ -92,3 +92,15 @@ python src/pitch_shift.py
 ### Run Analysis
 
 Run the three notebooks in `notebooks/` in order.
+
+## Team & Contributions
+
+**Group 6**
+
+| Member | Contributions |
+|--------|--------------|
+| Maxzavier Guo | `src/download.py`, `notebooks/01_extract_embeddings.ipynb` |
+| Enqi Lian | `notebooks/02_similarity_analysis.ipynb`, `notebooks/03_processed_audio_analysis.ipynb` |
+| Dustin Chen | `src/add_noise.py` |
+| Yiming Zhao | `src/high_pass.py`, `src/low_pass.py` |
+| Haosen Sun | `src/pitch_shift.py` |
