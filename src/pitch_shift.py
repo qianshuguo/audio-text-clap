@@ -55,8 +55,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--n-steps",
         type=float,
-        default=2.0,
-        help="Pitch-shift amount in semitones. Positive raises pitch, negative lowers it.",
+        default=-3.0,
+        help="Pitch-shift amount in semitones (default: -3). Positive raises pitch, negative lowers it.",
     )
     parser.add_argument(
         "--bins-per-octave",

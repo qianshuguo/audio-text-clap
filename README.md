@@ -26,7 +26,7 @@ We applied four distortion conditions to every clip, producing five versions per
 | highpass_1000Hz | high-pass filter at 1000 Hz — removes low-frequency content |
 | lowpass_4000Hz | low-pass filter at 4000 Hz — removes high-frequency content |
 | noisy_snr10dB | Gaussian white noise at SNR = 10 dB |
-| pitch_shift | pitch-shifted audio (semitone shift via librosa) |
+| pitch_shift | pitch-shifted audio (−3 semitones via librosa) |
 
 ## Code Structure
 
