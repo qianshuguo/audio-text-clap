@@ -7,14 +7,14 @@ Cross-modal audio-text retrieval systems like [LAION-CLAP](https://github.com/LA
 Our goals:
 - Quantify how four types of distortion (high-pass filter, low-pass filter, additive noise, pitch shift) affect retrieval performance
 - Identify which frequency or timbral properties CLAP relies on most for audio-text matching
-- Provide a reproducible evaluation pipeline on a standardized benchmark dataset
+- Provide a reproducible evaluation pipeline on the AudioCaps benchmark dataset
 
 ## Data
 
-We used **[AudioSet](https://research.google.com/audioset/)**, a large-scale dataset of YouTube audio clips annotated with sound event labels and text descriptions.
+We used **[AudioCaps](https://audiocaps.github.io/)**, a large-scale dataset of YouTube audio clips paired with human-written text captions, built as a subset of AudioSet.
 
-- **500 clips** sampled from AudioSet, each trimmed to 10 seconds
-- Downloaded directly from YouTube using the AudioSet metadata (video IDs + timestamps)
+- **500 clips** sampled from AudioCaps, each trimmed to 10 seconds
+- Downloaded directly from YouTube using the AudioCaps metadata (video IDs + timestamps)
 - Each clip comes with a human-written text caption used as the retrieval query
 - The raw audio files are not tracked in this repository (local only); use `src/download.py` to reproduce the dataset
 
@@ -33,7 +33,7 @@ We applied four distortion conditions to every clip, producing five versions per
 ```
 .
 ├── src/                    # preprocessing scripts
-│   ├── download.py         # download 10s clips from YouTube (AudioSet)
+│   ├── download.py         # download 10s clips from YouTube (AudioCaps)
 │   ├── add_noise.py        # add Gaussian white noise (configurable SNR)
 │   ├── high_pass.py        # high-pass filter (default cutoff: 1000 Hz)
 │   ├── low_pass.py         # low-pass filter (default cutoff: 4000 Hz)
